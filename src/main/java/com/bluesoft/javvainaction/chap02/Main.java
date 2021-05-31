@@ -25,6 +25,29 @@ class Main {
         result = FilteringApples.filterAppleByWeight(apples,150);
 
         displayApples(result);
+
+        result = FilteringApples.filterApples(apples, new AppleRedAndHeavyPredicate());
+
+        displayApples(result);
+
+        PrintingApple.prettyPrintApple(apples, new AppleExamineWeightFormatter());
+
+        // Anonymize class for select RED apple
+
+        result = FilteringApples.filterApples(apples, new ApplePredicate() {
+            @Override
+            public boolean test(final Apple apple) {
+                return Color.RED.equals(apple.getColor());
+            }
+        });
+
+        displayApples(result);
+
+        // Lambda expression for select Red apple
+
+        result = FilteringApples.filterApples(apples, (Apple apple) -> Color.RED.equals(apple.getColor()));
+
+        displayApples(result);
     }
 
     static void displayApples(List<Apple> apples){
