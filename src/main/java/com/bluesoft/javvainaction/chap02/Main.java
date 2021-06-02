@@ -1,6 +1,7 @@
 package com.bluesoft.javvainaction.chap02;
 
 import java.util.Arrays;
+import java.util.Comparator;
 import java.util.List;
 
 
@@ -15,44 +16,31 @@ class Main {
                 new Apple(120,Color.RED)
         );
 
+        List<Integer> numbers = Arrays.asList(2,3,4,2,3,6,7,5,9);
 
         displayApples(apples);
 
-        List<Apple> result = FilteringApples.filterApplesByColor(apples,Color.RED);
+        List<Apple> result = Filters.filter(apples,(Apple apple) -> Color.RED.equals(apple.getColor()));
 
         displayApples(result);
 
-        result = FilteringApples.filterAppleByWeight(apples,150);
+        List<Integer> odds = Filters.filter(numbers, (Integer i) -> i % 2 == 0);
 
-        displayApples(result);
+        displayApples(odds);
 
-        result = FilteringApples.filterApples(apples, new AppleRedAndHeavyPredicate());
+        apples.sort((Apple a1, Apple a2) -> (a1.getWeight() > a2.getWeight()) ? 1 : -1);
 
-        displayApples(result);
+        displayApples(apples);
 
-        PrintingApple.prettyPrintApple(apples, new AppleExamineWeightFormatter());
 
-        // Anonymize class for select RED apple
+        Thread t = new Thread(() -> System.out.println("Hello from thread"));
+        t.start();
 
-        result = FilteringApples.filterApples(apples, new ApplePredicate() {
-            @Override
-            public boolean test(final Apple apple) {
-                return Color.RED.equals(apple.getColor());
-            }
-        });
-
-        displayApples(result);
-
-        // Lambda expression for select Red apple
-
-        result = FilteringApples.filterApples(apples, (Apple apple) -> Color.RED.equals(apple.getColor()));
-
-        displayApples(result);
     }
 
-    static void displayApples(List<Apple> apples){
-        for(Apple apple : apples){
-            System.out.println(apple);
+    static <T> void displayApples(List<T> list){
+        for(T e : list){
+            System.out.println(e);
         }
 
 

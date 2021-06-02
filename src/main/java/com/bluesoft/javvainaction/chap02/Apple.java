@@ -1,27 +1,31 @@
 package com.bluesoft.javvainaction.chap02;
 
-class Apple {
+public class Apple {
     private int weight = 0;
     private Color color;
 
-    Apple(final int weight, final Color color) {
+    public Apple(final int weight, final Color color) {
         this.weight = weight;
         this.color = color;
     }
 
-    int getWeight() {
+    public Apple() {
+
+    }
+
+    public int getWeight() {
         return weight;
     }
 
-    void setWeight(final int weight) {
+    public void setWeight(final int weight) {
         this.weight = weight;
     }
 
-    Color getColor() {
+    public Color getColor() {
         return color;
     }
 
-    void setColor(final Color color) {
+    public void setColor(final Color color) {
         this.color = color;
     }
 

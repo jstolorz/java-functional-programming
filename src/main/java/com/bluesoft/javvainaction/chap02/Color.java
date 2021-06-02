@@ -1,5 +1,5 @@
 package com.bluesoft.javvainaction.chap02;
 
-enum Color {
+public enum Color {
     RED,GREEN
 }
