@@ -1,11 +1,19 @@
 package com.bluesoft.javvainaction.chap05;
 
+import com.bluesoft.javvainaction.chap04.Dish;
+
 import java.util.Arrays;
 import java.util.Comparator;
 import java.util.List;
+import java.util.OptionalInt;
 import java.util.stream.Collectors;
+import java.util.stream.IntStream;
+import java.util.stream.Stream;
+
+import static com.bluesoft.javvainaction.chap04.Dish.*;
 
 class Main {
+
     public static void main(String[] args) {
 
         Trader raoul = new Trader("Raoul", "Cambridge");
@@ -21,50 +29,44 @@ class Main {
                 new Transaction(alan, 2012, 950)
         );
 
-        var trans2011 = transactions.stream()
-                .filter(transaction -> transaction.getYear() == 2011)
-                .sorted(Comparator.comparing(Transaction::getValue))
-                .collect(Collectors.toList());
+        int calories = menu.stream()
+                .mapToInt(Dish::getCalories)
+                .sum();
 
-        System.out.println(trans2011);
+        System.out.println(calories);
 
-        transactions.stream()
-                .map(transaction -> transaction.getTrader().getCity())
-                .distinct()
+        OptionalInt maxCalories = menu.stream()
+                .mapToInt(Dish::getCalories)
+                .max();
+
+        System.out.println(maxCalories.orElse(1));
+
+        IntStream even = IntStream.rangeClosed(1,100)
+                .filter(n -> n % 2 == 0);
+
+        System.out.println(even.toArray());
+
+        System.out.println("---------------3P-------------------------");
+
+        Stream<int[]> pytagoreanTriples = IntStream.rangeClosed(1,100)
+                .boxed()
+                .flatMap(a ->
+                  IntStream.rangeClosed(a,100)
+                  .filter(b -> Math.sqrt(a*a + b*b) % 1 == 0)
+                  .mapToObj(b -> new int[]{a,b,(int)Math.sqrt(a*a+b*b)}));
+
+
+        pytagoreanTriples.limit(5)
+                .forEach(n -> System.out.println(n[0] + ", " + n[1] + ", " + n[2]));
+
+        Stream<String> stream = Stream.of("Modern ","Java ","In ","Action ");
+        stream.map(String::toUpperCase)
                 .forEach(System.out::println);
 
-        transactions.stream()
-                .filter(transaction -> transaction.getTrader().getCity().equals("Cambridge"))
-                .sorted(Comparator.comparing(transaction -> transaction.getTrader().getName()))
+        Stream.iterate(0, n -> n +2)
+                .limit(20)
                 .forEach(System.out::println);
 
-        String s = transactions.stream()
-                .map(transaction -> transaction.getTrader().getName())
-                .distinct()
-                .sorted()
-                .reduce((a,b) -> a + b).get();
-
-        System.out.println(s);
-
-        boolean b = transactions.stream()
-                .anyMatch(transaction -> transaction.getTrader().getCity().equals("Milan"));
-
-        System.out.println(b);
-
-        transactions.stream()
-                .filter(transaction -> transaction.getTrader().getCity().equals("Cambridge"))
-                .map(Transaction::getValue)
-                .forEach(System.out::println);
-
-        var max = transactions.stream()
-                .max(Comparator.comparing(Transaction::getValue)).get();
-
-        System.out.println(max);
-
-        var min = transactions.stream()
-                .min(Comparator.comparing(Transaction::getValue)).get();
-
-        System.out.println(min);
 
 
     }

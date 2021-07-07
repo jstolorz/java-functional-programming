@@ -2,39 +2,39 @@ package com.bluesoft.javvainaction.chap05;
 
 import java.util.Objects;
 
-class Transaction {
+public class Transaction {
 
     private Trader trader;
     private int year;
     private int value;
 
-    Transaction(final Trader trader, final int year, final int value) {
+    public Transaction(final Trader trader, final int year, final int value) {
         this.trader = trader;
         this.year = year;
         this.value = value;
     }
 
-    Trader getTrader() {
+    public Trader getTrader() {
         return trader;
     }
 
-    void setTrader(final Trader trader) {
+     public void setTrader(final Trader trader) {
         this.trader = trader;
     }
 
-    int getYear() {
+    public int getYear() {
         return year;
     }
 
-    void setYear(final int year) {
+    public void setYear(final int year) {
         this.year = year;
     }
 
-    int getValue() {
+    public int getValue() {
         return value;
     }
 
-    void setValue(final int value) {
+    public void setValue(final int value) {
         this.value = value;
     }
 

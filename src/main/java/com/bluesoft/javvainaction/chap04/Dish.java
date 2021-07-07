@@ -3,33 +3,33 @@ package com.bluesoft.javvainaction.chap04;
 import java.util.Arrays;
 import java.util.List;
 
-class Dish {
+public class Dish {
     private final String name;
     private final boolean vegetarian;
     private final int calories;
     private final Type type;
 
 
-    Dish(final String name, final boolean vegetarian, final int calories, final Type type) {
+    public Dish(final String name, final boolean vegetarian, final int calories, final Type type) {
         this.name = name;
         this.vegetarian = vegetarian;
         this.calories = calories;
         this.type = type;
     }
 
-    String getName() {
+    public String getName() {
         return name;
     }
 
-    boolean isVegetarian() {
+    public boolean isVegetarian() {
         return vegetarian;
     }
 
-    int getCalories() {
+    public int getCalories() {
         return calories;
     }
 
-    Type getType() {
+    public Type getType() {
         return type;
     }
 
