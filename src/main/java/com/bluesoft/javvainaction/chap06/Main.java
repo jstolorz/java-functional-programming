@@ -1,7 +1,6 @@
 package com.bluesoft.javvainaction.chap06;
 
 import com.bluesoft.javvainaction.chap04.Dish;
-import com.bluesoft.javvainaction.chap05.Transaction;
 
 import java.util.*;
 
@@ -66,9 +65,25 @@ class Main {
 
         System.out.println(statistics.getMax() + ", " + statistics.getAverage());
 
-        String shortMenu = Dish.menu.stream().map(Dish::getName).collect(joining());
+        String shortMenu = Dish.menu.stream().map(Dish::getName).collect(joining(", "));
+
+        System.out.println(shortMenu);
+
+        int totalCaloriesR = Dish.menu.stream()
+                .collect(reducing(0,Dish::getCalories, Integer::sum));
+
+
+        Map<CaloricLevel, List<Dish>> dishesByCaloricLevel = Dish.menu.stream()
+                .collect(groupingBy(dish -> {
+                    if(dish.getCalories() <= 400) return CaloricLevel.DIET;
+                    else if(dish.getCalories() <=700) return CaloricLevel.NORMAL;
+                    else
+                        return CaloricLevel.FAT;
+                }));
+
     }
 
+    public enum CaloricLevel {DIET, NORMAL, FAT}
 
 
     private static void printTransactionsByCurrency(final Map<Currency, List<Transaction>> transactionByCurrency) {
