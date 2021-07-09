@@ -1,6 +1,6 @@
 package com.bluesoft.javvainaction.chap06;
 
-import com.bluesoft.javvainaction.chap04.Dish;
+import com.bluesoft.javvainaction.chap04.*;
 
 import java.util.*;
 
@@ -80,6 +80,25 @@ class Main {
                     else
                         return CaloricLevel.FAT;
                 }));
+
+
+        Map<Boolean, List<Dish>> partitionMenu = Dish.menu.stream()
+                .collect(partitioningBy(Dish::isVegetarian));
+
+       partitionMenu.forEach((k,v) -> System.out.println("Key: " + k + " value: " + v));
+
+       List<Dish> vegetarianDish = Dish.menu.stream().filter(Dish::isVegetarian).collect(toList());
+
+       vegetarianDish.forEach(System.out::println);
+
+       Map<Boolean, Dish> mostCaloricVege = Dish.menu.stream()
+               .collect(
+                       partitioningBy(
+                               Dish::isVegetarian,
+                               collectingAndThen(maxBy(Comparator.comparingInt(Dish::getCalories)),
+                                       Optional::get)));
+
+       mostCaloricVege.forEach((k,v) -> System.out.println("Key: " + k + " value: " + v));
 
     }
 

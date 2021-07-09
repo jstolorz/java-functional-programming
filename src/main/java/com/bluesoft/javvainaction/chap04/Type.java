@@ -1,6 +1,6 @@
 package com.bluesoft.javvainaction.chap04;
 
-enum Type {
+public enum Type {
     MEAT,
     FISH,
     OTHER
